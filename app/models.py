@@ -7,4 +7,3 @@ class User(db.Model):
     phone = db.Column(db.String(15))  # Optional field
     adress = db.Column(db.String(50))  # Optional field
     date_of_birth = db.Column(db.Date)  # New field
-
