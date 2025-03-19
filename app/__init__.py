@@ -1,21 +1,21 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# Create the database object (without initializing it with the app yet)
+# Initialize the database
 db = SQLAlchemy()
 
 def create_app():
-    # Initialize the Flask app
+    # Initialize Flask app
     app = Flask(__name__)
-
-    # Configure the app
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@postgres-db-service/mydb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Initialize the db with the app
+    # Initialize the database
     db.init_app(app)
 
-    # Import routes and models inside the create_app function to avoid circular import
-    from app import routes, models
+    # Import routes here to avoid circular imports
+    from . import routes
+
+    # Register blueprints or anything else here
 
     return app
