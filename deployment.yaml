@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: web-app
 spec:
-  replicas: 2
+  replicas: 2  # Number of replicas to ensure high availability
   selector:
     matchLabels:
       app: web-app
@@ -14,9 +14,24 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: your-roll-number/web-app:latest
+        image: your-roll-number/web-app:latest  # Replace with your actual Docker image name
         ports:
-        - containerPort: 5000
+        - containerPort: 5000  # Expose port 5000 for the Flask app
         env:
         - name: FLASK_ENV
-          value: production
+          value: production  # Set Flask environment variable for production
+        - name: DATABASE_URL
+          value: "postgresql://user:password@postgres-db-service:5432/mydb"  # Connect to the PostgreSQL service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  selector:
+    app: web-app  # Match the label of the web app deployment
+  ports:
+    - protocol: TCP
+      port: 5000  # External port to expose
+      targetPort: 5000  # Internal port where Flask app is running
+  type: ClusterIP  # Use LoadBalancer if you need external access
