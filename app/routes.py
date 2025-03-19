@@ -11,7 +11,8 @@ def submit():
     name = request.form['name']
     email = request.form['email']
     phone = request.form.get('phone', '')  # Optional field
-    user = User(name=name, email=email, phone=phone)
+    adress = request.form.get('adress', '')  # Optional field
+    user = User(name=name, email=email, phone=phone, adress=adress)
     db.session.add(user)
     db.session.commit()
     return redirect(url_for('index'))
