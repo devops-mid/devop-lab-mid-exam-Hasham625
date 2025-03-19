@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: postgres-db
 spec:
-  replicas: 1
+  replicas: 1  # Typically, only one replica is needed for databases
   selector:
     matchLabels:
       app: postgres-db
@@ -14,13 +14,26 @@ spec:
     spec:
       containers:
       - name: postgres-db
-        image: postgres:13
+        image: postgres:13  # Use official PostgreSQL image
         env:
         - name: POSTGRES_DB
-          value: mydb
+          value: mydb  # Name of the database to create
         - name: POSTGRES_USER
-          value: user
+          value: user  # Database username
         - name: POSTGRES_PASSWORD
-          value: password
+          value: password  # Database password
         ports:
-        - containerPort: 5432
+        - containerPort: 5432  # Default PostgreSQL port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db-service
+spec:
+  selector:
+    app: postgres-db  # Match the label of the PostgreSQL deployment
+  ports:
+    - protocol: TCP
+      port: 5432  # Expose PostgreSQL port externally (internally for the app to connect)
+      targetPort: 5432  # Internal PostgreSQL port
+  type: ClusterIP  # Make it accessible only within the cluster
