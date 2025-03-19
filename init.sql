@@ -3,5 +3,6 @@ CREATE TABLE users (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(50) NOT NULL,
     phone VARCHAR(20),
-    adress VARCHAR(100)
+    adress VARCHAR(100),
+    dob Date
 );
