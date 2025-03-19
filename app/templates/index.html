@@ -11,10 +11,13 @@
     <h1>Welcome to the Simple Web App</h1>
     <form action="/submit" method="post">
         Name: <input type="text" name="name" required><br>
-        Email: <input type="email" name="email" required><br>
-        Phone: <input type="text" name="phone"><br>
+        Email: 
+        <input type="email" name="email" required 
+               placeholder="example@example.com" 
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"><br> <!-- Email validation -->
+        Phone: <input type="text" name="phone" required><br>
         Address: <input type="text" name="adress"><br>
-        Date of Birth: <input type="date" name="date_of_birth"><br> <!-- New Field -->
+        Date of Birth: <input type="date" name="date_of_birth"><br>
         <input type="submit" value="Submit">
     </form>
 </body>
